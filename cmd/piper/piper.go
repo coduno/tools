@@ -8,6 +8,7 @@ import (
 	"log"
 	"net"
 	"net/http"
+	"os"
 )
 
 const port = ":8090"
@@ -57,7 +58,7 @@ func proxy(down net.Conn) {
 }
 
 func copy(w io.Writer, r io.Reader) {
-	n, err := io.Copy(w, r)
+	n, err := io.Copy(io.MultiWriter(w, os.Stderr), r)
 	if err != nil {
 		log.Printf("copy: %s", err)
 		return
