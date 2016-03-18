@@ -11,7 +11,7 @@ import (
 	"os"
 )
 
-const port = ":8090"
+const port = ":8080"
 
 func main() {
 	cert, err := tls.LoadX509KeyPair("cod.uno.crt.pem", "cod.uno.key.pem")
