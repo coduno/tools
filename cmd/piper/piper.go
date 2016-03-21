@@ -12,6 +12,7 @@ import (
 )
 
 const port = ":8080"
+const targetPort = ":8090"
 
 func main() {
 	cert, err := tls.LoadX509KeyPair("cod.uno.crt.pem", "cod.uno.key.pem")
@@ -38,14 +39,15 @@ func main() {
 func proxy(down net.Conn) {
 	defer down.Close()
 	log.Printf("Handling this!")
-	target, err := ip()
+	targetIp, err := ip()
 	if err != nil {
 		log.Print("ip: " + err.Error())
 		return
 	}
-	log.Printf("Piping to %q", target+port)
+	target := targetIp + targetPort
+	log.Printf("Piping to %q", target)
 
-	up, err := net.Dial("tcp", target+port)
+	up, err := net.Dial("tcp", target)
 	if err != nil {
 		log.Print(err)
 		return
