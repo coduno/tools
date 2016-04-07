@@ -69,7 +69,7 @@ func copy(w io.Writer, r io.Reader) {
 }
 
 func ip() (string, error) {
-	r, err := http.Get("https://api.cod.uno/ip")
+	r, err := http.Get("https://platform.cod.uno/ip")
 	if err != nil {
 		return "", err
 	}
